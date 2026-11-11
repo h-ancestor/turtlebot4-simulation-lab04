@@ -8,15 +8,14 @@ Workspace ROS 2 Humble cho mô phỏng TurtleBot 4 Lite trong world `warehouse`,
 - `maps/map.yaml`, `maps/map.pgm`: map occupancy được lưu từ `/map` do SLAM Toolbox phát ra. Kích thước 560×472, độ phân giải 0.05 m/cell, origin `[-13.1, -11.9, 0]`. Bản sao trong `turtlebot4_lab/maps/` được cài theo package để giá trị mặc định của localization launch hoạt động.
 - `docs/map_week04.png`: ảnh raster của map đã lưu.
 - `docs/tuan05_rviz_navigation_yolo.png`: ảnh RViz từ lần kiểm chứng tích hợp ở tuần 5, dùng cùng world/map; không phải ảnh quay quá trình mapping.
-- `docs/bao-cao-tuan-04.pdf`: báo cáo cập nhật theo map/kết quả hiện có.
+
 
 ## Trạng thái và giới hạn đã biết
 
 - Gazebo warehouse/TurtleBot 4 Lite đã chạy; `/scan`, `/odom` và `/cmd_vel` đã được quan sát trong ROS graph. Có thể dùng teleop để điều khiển robot.
-- SLAM Toolbox đã lưu occupancy map 560×472. Tuyến khảo sát tập trung khu vực aisle trung tâm, chưa phủ phần lớn/toàn bộ warehouse; một số vùng có nhiễu và biên chưa thật mượt. Xem `docs/map_week04.png` để đánh giá trực tiếp.
-- Map đã được nạp trong cùng world cho AMCL/Nav2. Trong lượt kiểm chứng tích hợp về sau, ba Nav2 goal được gửi bằng chương trình của bài tuần 5 và cả ba báo `SUCCEEDED`; pose AMCL cuối khoảng `(-4.74, 6.05)` so với goal `(-5, 6)`. Đây là kiểm chứng Nav2/AMCL trên map, không phải bằng chứng rằng công cụ RViz Nav2 Goal thủ công của bài 4 đã quay video.
-- Không có video tuần 4 riêng ghi trọn quá trình mapping, map saver, localization rồi ba goal. Vì vậy README không đính kèm hoặc khẳng định có video đó.
-- Báo cáo cũ trong workspace gốc ghi trạng thái ngày 14/10, trước khi map hợp lệ được tạo; repo này dùng báo cáo PDF cập nhật trong `docs/`.
+- SLAM Toolbox đã lưu occupancy map 560×472. Tuyến khảo sát tập trung khu vực aisle trung tâm, chưa phủ phần lớn/toàn bộ warehouse; một số vùng có nhiễu và biên chưa thật mượt. Xem `docs/map_week04.png` 
+- Map đã được nạp trong cùng world cho AMCL/Nav2. Trong lượt kiểm chứng tích hợp về sau, ba Nav2 goal được gửi bằng chương trình của bài tuần 5 và cả ba báo `SUCCEEDED`; pose AMCL cuối khoảng `(-4.74, 6.05)` so với goal `(-5, 6)`. Đây là kiểm chứng Nav2/AMCL trên map
+
 
 ## Môi trường và cài dependency
 
@@ -90,8 +89,7 @@ Sau khi xác nhận initial pose khớp vị trí spawn và AMCL hội tụ, m�
 ros2 launch turtlebot4_lab navigation.launch.py use_sim_time:=true
 ```
 
-Đặt `2D Pose Estimate` trong RViz nếu cần; sau đó dùng `Nav2 Goal` cho từng vị trí trong vùng đã khảo sát. Theo dõi scan/costmap để bảo đảm đường đi an toàn. Đừng gửi goal vào vùng chưa có map hoặc chưa xác minh.
-
+Đặt `2D Pose Estimate` trong RViz nếu cần; sau đó dùng `Nav2 Goal` cho từng vị trí trong vùng đã khảo sát. Theo dõi scan/costmap để bảo đảm đường đi an toàn.
 ## Topics chính
 
 - `/scan` — LiDAR (`sensor_msgs/msg/LaserScan`).
@@ -101,8 +99,4 @@ ros2 launch turtlebot4_lab navigation.launch.py use_sim_time:=true
 - `/initialpose`, `/amcl_pose` — pose ban đầu và pose AMCL.
 - `/tf`, `/tf_static` — transform giữa `map`, `odom`, base và sensor.
 
-## Ghi nhận nộp bài
 
-- Repo public: thêm URL sau khi tạo repository.
-- Video Drive: chưa có video tuần 4 riêng; không thay bằng video chỉ ghi navigation tuần 5.
-- Báo cáo PDF cập nhật đã nằm trong `docs/bao-cao-tuan-04.pdf`; link repo và video có thể bổ sung sau.
